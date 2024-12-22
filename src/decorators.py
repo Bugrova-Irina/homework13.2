@@ -43,7 +43,7 @@ def log(filename: str = "") -> Any:
     return logging
 
 
-@log("../homework_13.2/logs/my_log.txt")
+@log("../homework13.2/logs/my_log.txt")
 def my_function(x: int, y: int) -> float:
 
     return x / y

@@ -2,8 +2,11 @@ from typing import Any
 
 import pytest
 
-from src.generators import (card_number_generator, filter_by_currency,
-                            transaction_descriptions)
+from src.generators import (
+    card_number_generator,
+    filter_by_currency,
+    transaction_descriptions,
+)
 
 
 def test_filter_by_currency(transactions_list: list[dict[str, Any]]) -> None:
@@ -25,7 +28,7 @@ def test_filter_by_currency(transactions_list: list[dict[str, Any]]) -> None:
 def test_empty_transactions() -> None:
     with pytest.raises(ValueError) as exc_info:
         filter_by_currency([{}], "USD")
-    assert str(exc_info.value) == "Некорректные исxодные данные"
+    assert str(exc_info.value) == "Нет обозначения валюты в транзакциях"
 
 
 @pytest.mark.parametrize(

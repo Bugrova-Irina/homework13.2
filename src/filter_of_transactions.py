@@ -1,47 +1,132 @@
-import json
 import re
 from collections import Counter
 from typing import Any
 
 
-def get_dicts_with_pattern(dicts_file: str, pattern_str: str) -> list[dict[str, Any]]:
+def get_dicts_with_pattern(
+    dicts_list: list[dict[str, Any]], pattern_str: str
+) -> list[dict[str, Any]]:
     """Возвращает список словарей, у которых в описании есть заданная строка"""
 
-    with open(dicts_file, encoding="utf-8") as file:
-        list_dicts = json.load(file)
+    try:
+        pattern = re.compile(pattern_str)
+        filtered_dicts = [
+            dictionary
+            for dictionary in dicts_list
+            if "description" in dictionary
+            and dictionary["description"] is not None
+            and pattern.search(str(dictionary["description"]))
+        ]
 
-    pattern = re.compile(pattern_str)
-    filtered_dict = [
-        dictionary
-        for dictionary in list_dicts
-        if dictionary.get("description") is not None
-        and pattern.search(dictionary["description"])
-    ]
+        return filtered_dicts
 
-    return filtered_dict
+    except Exception as ex:
+        print(f"Неверный формат данных {ex}")
 
 
-def get_dict_of_categories(dicts_file: str, categories: list[str]) -> dict[str, int]:
+def get_dict_of_categories(
+    dicts_list: list[dict[str, Any]], categories: list[str]
+) -> dict[str, int]:
     """
     возвращает словарь вида
     {'название категории': 'количество операций в каждой категории'}
     """
 
-    with open(dicts_file, encoding="utf-8") as file:
-        list_dicts = json.load(file)
-
     categories_list = []
-    for dictionary in list_dicts:
-        if dictionary.get("description") is not None and dictionary["description"] in categories:
+    for dictionary in dicts_list:
+        if (
+            dictionary.get("description") is not None
+            and dictionary["description"] in categories
+        ):
             categories_list.append(dictionary["description"])
 
     counted_categories = dict(Counter(categories_list))
+    print(categories)
     return counted_categories
 
 
 if __name__ == "__main__":
-    word = "вклада"
-    print(get_dicts_with_pattern("../homework13.2/data/operations.json", word))
+    word = "Перевод со счета на счет"
+    dictionary_list = [
+        {
+            "id": 441945886,
+            "state": "EXECUTED",
+            "date": "2019-08-26T10:50:58.294041",
+            "operationAmount": {
+                "amount": "31957.58",
+                "currency": {"name": "руб.", "code": "RUB"},
+            },
+            "description": "Перевод организации",
+            "from": "Maestro 1596837868705199",
+            "to": "Счет 64686473678894779589",
+        },
+        {
+            "id": 41428829,
+            "state": "EXECUTED",
+            "date": "2019-07-03T18:35:29.512364",
+            "operationAmount": {
+                "amount": "8221.37",
+                "currency": {"name": "USD", "code": "USD"},
+            },
+            "description": "Перевод организации",
+            "from": "MasterCard 7158300734726758",
+            "to": "Счет 35383033474447895560",
+        },
+        {
+            "id": 939719570,
+            "state": "EXECUTED",
+            "date": "2018-06-30T02:08:58.425572",
+            "operationAmount": {
+                "amount": "9824.07",
+                "currency": {"name": "USD", "code": "USD"},
+            },
+            "description": "Перевод организации",
+            "from": "Счет 75106830613657916952",
+            "to": "Счет 11776614605963066702",
+        },
+        {
+            "id": 587085106,
+            "state": "EXECUTED",
+            "date": "2018-03-23T10:45:06.972075",
+            "operationAmount": {
+                "amount": "48223.05",
+                "currency": {"name": "руб.", "code": "RUB"},
+            },
+            "description": "Открытие вклада",
+            "to": "Счет 41421565395219882431",
+        },
+        {
+            "id": 142264268,
+            "state": "EXECUTED",
+            "date": "2019-04-04T23:20:05.206878",
+            "operationAmount": {
+                "amount": "79114.93",
+                "currency": {"name": "USD", "code": "USD"},
+            },
+            "description": "Перевод со счета на счет",
+            "from": "Счет 19708645243227258542",
+            "to": "Счет 75651667383060284188",
+        },
+        {
+            "id": 873106923,
+            "state": "EXECUTED",
+            "date": "2019-03-23T01:09:46.296404",
+            "operationAmount": {
+                "amount": "43318.34",
+                "currency": {"name": "руб.", "code": "RUB"},
+            },
+            "description": "Перевод со счета на счет",
+            "from": "Счет 44812258784861134719",
+            "to": "Счет 74489636417521191160",
+        },
+    ]
+    # print(get_dicts_with_pattern(dictionary_list, word))
 
-    categories = ['Перевод организации', 'Перевод с карты на счет', 'Перевод с карты на карту', 'Перевод со счета на счет', 'Открытие вклада']
-    print(get_dict_of_categories("../homework13.2/data/operations.json", categories))
+    categories = [
+        "Перевод организации",
+        "Перевод с карты на счет",
+        "Перевод с карты на карту",
+        "Перевод со счета на счет",
+        "Открытие вклада",
+    ]
+    print(get_dict_of_categories(dictionary_list, categories))

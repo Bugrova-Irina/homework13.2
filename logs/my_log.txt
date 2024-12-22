@@ -4,3 +4,8 @@ my_function error: division by zero. Inputs: (1, 0), {}
 my_function error: division by zero. Inputs: (1, 0), {}
 my_function error: division by zero. Inputs: (1, 0), {}
 my_function error: division by zero. Inputs: (1, 0), {}
+my_function error: division by zero. Inputs: (1, 0), {}
+my_function error: division by zero. Inputs: (1, 0), {}
+my_function error: division by zero. Inputs: (1, 0), {}
+my_function error: division by zero. Inputs: (1, 0), {}
+my_function error: division by zero. Inputs: (1, 0), {}
