@@ -92,14 +92,14 @@ def test_filter_by_state(
 
 def test_filter_by_state_empty_dict() -> None:
     with pytest.raises(ValueError):
-        filter_by_state([{}])
+        filter_by_state([])
 
 
 def test_filter_by_invalid_state(
     list_of_dicts_with_invalid_status: list[dict[str, Any]]
 ) -> None:
     with pytest.raises(ValueError):
-        filter_by_state(list_of_dicts_with_invalid_status)
+        filter_by_state(list_of_dicts_with_invalid_status, state="EXECUTED")
 
 
 @pytest.mark.parametrize(
@@ -348,4 +348,4 @@ def test_sort_by_invalid_date(
 
 def test_filter_by_empty_date() -> None:
     with pytest.raises(ValueError):
-        sort_by_date([{}])
+        sort_by_date([])

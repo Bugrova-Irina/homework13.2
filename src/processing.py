@@ -7,7 +7,6 @@ def filter_by_state(
     """Функция, фильтрующая список по статусу"""
     new_list_of_dicts = []
 
-    # if list_of_dicts == [{}]:
     if not list_of_dicts:
         raise ValueError("Пустой список")
 
@@ -15,6 +14,9 @@ def filter_by_state(
         if "state" in dictionary:
             if dictionary["state"] == state:
                 new_list_of_dicts.append(dictionary)
+
+    if not new_list_of_dicts:
+        raise ValueError(f"Нет транзакций со статусом '{state}'")
 
     return new_list_of_dicts
 

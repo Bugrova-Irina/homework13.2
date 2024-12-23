@@ -49,17 +49,17 @@ def generate_transaction(transactions: list[dict[str, Any]]) -> list[dict[str, A
             return f"Некорректные исходные данные {e}"
 
 
-if __name__ == "__main__":
-    result = get_transactions("../homework13.2/data/operations.json")
-    print(result)
-
-    if not result:
-        print("Нет доступных транзакций для итерации")
-    else:
-        transaction_item = generate_transaction(result)
-
-        try:
-            transaction1 = [next(transaction_item) for i in range(2)][0]
-            print(transaction1)
-        except StopIteration:
-            print("Не удалось получить транзакции.")
+# if __name__ == "__main__":
+#     result = get_transactions("../homework13.2/data/operations.json")
+#     print(result)
+#
+#     if not result:
+#         print("Нет доступных транзакций для итерации")
+#     else:
+#         transaction_item = generate_transaction(result)
+#
+#         try:
+#             transaction1 = [next(transaction_item) for i in range(2)][0]
+#             print(transaction1)
+#         except StopIteration:
+#             print("Не удалось получить транзакции.")

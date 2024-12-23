@@ -154,8 +154,8 @@ def test_transaction_description(
 
 def test_empty_transaction_descriptions() -> None:
     with pytest.raises(ValueError):
-        generator = transaction_descriptions([{}])
-        assert next(generator) == "Некорректные исxодные данные"
+        generator = transaction_descriptions([])
+        next(generator)
 
 
 def test_transaction_with_5_description(

@@ -8,20 +8,22 @@ def get_dicts_with_pattern(
 ) -> list[dict[str, Any]]:
     """Возвращает список словарей, у которых в описании есть заданная строка"""
 
-    try:
-        pattern = re.compile(pattern_str)
-        filtered_dicts = [
-            dictionary
-            for dictionary in dicts_list
-            if "description" in dictionary
-            and dictionary["description"] is not None
-            and pattern.search(str(dictionary["description"]))
-        ]
+    if not isinstance(dicts_list, list):
+        raise ValueError("Некорректные исходные данные")
 
+    pattern = re.compile(pattern_str)
+    filtered_dicts = [
+        dictionary
+        for dictionary in dicts_list
+        if "description" in dictionary
+        and dictionary["description"] is not None
+        and pattern.search(str(dictionary["description"]))
+    ]
+
+    if filtered_dicts:
         return filtered_dicts
-
-    except Exception as ex:
-        print(f"Неверный формат данных {ex}")
+    else:
+        return "Нет транзакций с таким описанием"
 
 
 def get_dict_of_categories(
@@ -31,6 +33,8 @@ def get_dict_of_categories(
     возвращает словарь вида
     {'название категории': 'количество операций в каждой категории'}
     """
+    if not isinstance(dicts_list, list):
+        raise ValueError("Некорректные исходные данные")
 
     categories_list = []
     for dictionary in dicts_list:
@@ -41,8 +45,11 @@ def get_dict_of_categories(
             categories_list.append(dictionary["description"])
 
     counted_categories = dict(Counter(categories_list))
-    print(categories)
-    return counted_categories
+
+    if counted_categories:
+        return counted_categories
+    else:
+        return "Нет категорий для подсчета"
 
 
 if __name__ == "__main__":
