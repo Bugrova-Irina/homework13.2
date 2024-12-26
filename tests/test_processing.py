@@ -91,15 +91,15 @@ def test_filter_by_state(
 
 
 def test_filter_by_state_empty_dict() -> None:
-    with pytest.raises(ValueError):
-        filter_by_state([])
+    # with pytest.raises(ValueError):
+    #     filter_by_state([])
+    assert filter_by_state([], state="EXECUTED") == []
 
 
 def test_filter_by_invalid_state(
     list_of_dicts_with_invalid_status: list[dict[str, Any]]
 ) -> None:
-    with pytest.raises(ValueError):
-        filter_by_state(list_of_dicts_with_invalid_status, state="EXECUTED")
+    assert filter_by_state(list_of_dicts_with_invalid_status, state="PENDING") == []
 
 
 @pytest.mark.parametrize(

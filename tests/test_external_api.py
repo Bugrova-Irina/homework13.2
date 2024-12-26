@@ -5,7 +5,6 @@ import pytest
 from dotenv import load_dotenv
 
 from src.external_api import get_amount
-# from tests.conftest import transaction_rub
 
 
 def test_get_amount_success(transaction_rub):

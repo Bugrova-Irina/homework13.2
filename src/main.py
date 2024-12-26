@@ -11,32 +11,32 @@ from widget import get_date, mask_account_card
 def get_user_path() -> str:
     """Определяет, из какого файла считывать транзакции"""
 
-    user_choice = input(
-        """
-        Привет! Добро пожаловать в программу работы
-        с банковскими транзакциями.
-        Выберите необходимый пункт меню:
-        1. Получить информацию о транзакциях из JSON-файла
-        2. Получить информацию о транзакциях из CSV-файла
-        3. Получить информацию о транзакциях из XLSX-файла\n
-        """
-    )
-    user_file_path = ""
+    while True:
+        user_choice = input(
+            """
+            Привет! Добро пожаловать в программу работы
+            с банковскими транзакциями.
+            Выберите необходимый пункт меню:
+            1. Получить информацию о транзакциях из JSON-файла
+            2. Получить информацию о транзакциях из CSV-файла
+            3. Получить информацию о транзакциях из XLSX-файла\n
+            """
+        )
 
-    if user_choice == "1":
-        user_file_path = "../homework13.2/data/operations.json"
-        print("Для обработки выбран JSON-файл")
-    elif user_choice == "2":
-        user_file_path = "../homework13.2/data/transactions.csv"
-        print("Для обработки выбран CSV-файл")
-    elif user_choice == "3":
-        user_file_path = "../homework13.2/data/transactions_excel.xlsx"
-        print("Для обработки выбран XLSX-файл")
-    else:
-        print("Введен неверный номер пункта меню")
-        get_user_path()  # Повторяем вопрос пользователю
-
-    return user_file_path
+        if user_choice == "1":
+            user_file_path = "../homework13.2/data/operations.json"
+            print("Для обработки выбран JSON-файл")
+            return user_file_path
+        elif user_choice == "2":
+            user_file_path = "../homework13.2/data/transactions.csv"
+            print("Для обработки выбран CSV-файл")
+            return user_file_path
+        elif user_choice == "3":
+            user_file_path = "../homework13.2/data/transactions_excel.xlsx"
+            print("Для обработки выбран XLSX-файл")
+            return user_file_path
+        else:
+            print("Введен неверный номер пункта меню. Повторите ввод.")
 
 
 def get_user_status_of_transactions() -> str:
@@ -59,60 +59,67 @@ def get_user_status_of_transactions() -> str:
         print('\nОперации отфильтрованы по статусу "PENDING"')
         return user_input_status
     else:
-        print(f"Статус операции {user_input_status} недоступен")
+        print(f'Статус операции "{user_input_status}" недоступен')
         return get_user_status_of_transactions()  # Повторяем вопрос пользователю
 
 
 def get_user_sort_by_date() -> Any:
     """Уточняет у пользователя, нужна ли сортировка транзакций по дате"""
 
-    user_input_sort_by_date = input(
-        "\nОтсортировать операции по дате? (да/нет)\n"
-    ).lower()
-
-    if user_input_sort_by_date == "да":
-        user_input_sort_by_date_reverse = input(
-            "\nОтсортировать по возрастанию или по убыванию? (по возрастанию/по убыванию)\n"
+    while True:
+        user_input_sort_by_date = input(
+            "\nОтсортировать операции по дате? (да/нет)\n"
         ).lower()
-        if user_input_sort_by_date_reverse == "по убыванию":
-            return True
-        elif user_input_sort_by_date_reverse == "по возрастанию":
-            return False
+
+        if user_input_sort_by_date == "да":
+            user_input_sort_by_date_reverse = input(
+                "\nОтсортировать по возрастанию или по убыванию? (по возрастанию/по убыванию)\n"
+            ).lower()
+            if user_input_sort_by_date_reverse == "по убыванию":
+                return True
+            elif user_input_sort_by_date_reverse == "по возрастанию":
+                return False
+            else:
+                print("Некорректный ввод. Попробуйте еще раз.")
+                # return get_user_sort_by_date()  # Повторяем вопрос пользователю
+        elif user_input_sort_by_date == "нет":
+            return None
         else:
             print("Некорректный ввод. Попробуйте еще раз.")
-            return get_user_sort_by_date()  # Повторяем вопрос пользователю
-    elif user_input_sort_by_date == "нет":
-        return None
-    else:
-        print("Некорректный ввод. Попробуйте еще раз.")
-        return get_user_sort_by_date()  # Повторяем вопрос пользователю
+            # return get_user_sort_by_date()  # Повторяем вопрос пользователю
 
 
 def get_user_filter_by_currency() -> str:
     """Уточняет у пользователя, в какой валюте выводить транзакции"""
 
-    user_input_currency = input("\nВыводить только рублевые транзакции? (да/нет)\n")
-    if user_input_currency == "да":
-        return "RUB"
-    elif user_input_currency == "нет":
-        return "USD"
-    else:
-        return get_user_filter_by_currency()  # Повторяем вопрос пользователю
+    while True:
+        user_input_currency = input(
+            "\nВыводить только рублевые транзакции? (да/нет)\n"
+        ).lower()
+        if user_input_currency == "да":
+            return "RUB"
+        elif user_input_currency == "нет":
+            return "USD"
+        else:
+            print("Некорректный ввод. Попробуйте еще раз.")
+            # return get_user_filter_by_currency()  # Повторяем вопрос пользователю
 
 
 def get_user_filter_transactions_by_word() -> Any:
     """Уточняет у пользователя, по какому слову в описании фильтровать транзакции"""
 
-    user_input_word_for_filter_transactions = input(
-        "\nОтфильтровать список транзакций по определенному слову в описании? (да/нет)\n"
-    ).lower()
-    if user_input_word_for_filter_transactions == "да":
-        user_filter_word = input("\nВведите слово или строку для фильтрации:\n")
-        return user_filter_word
-    elif user_input_word_for_filter_transactions == "нет":
-        return None
-    else:
-        return get_user_filter_transactions_by_word()  # Повторяем вопрос пользователю
+    while True:
+        user_input_word_for_filter_transactions = input(
+            "\nОтфильтровать список транзакций по определенному слову в описании? (да/нет)\n"
+        ).lower()
+        if user_input_word_for_filter_transactions == "да":
+            user_filter_word = input("\nВведите слово или строку для фильтрации:\n")
+            return user_filter_word
+        elif user_input_word_for_filter_transactions == "нет":
+            return None
+        else:
+            print("Некорректный ввод. Попробуйте еще раз.")
+            # return get_user_filter_transactions_by_word()  # Повторяем вопрос пользователю
 
 
 def main() -> Any:
@@ -163,11 +170,84 @@ def main() -> Any:
                     f"Всего банковских операций в выборке: {len(list_dicts_filtered_by_word)}"
                 )
 
-                for (
-                    dictionary
-                ) in (
-                    list_dicts_filtered_by_word
-                ):  # Проверяем наличие нужных для вывода значений в словарях
+                for dictionary in list_dicts_filtered_by_word:
+                    # Проверяем наличие нужных для вывода значений в словарях
+                    if not isinstance(dictionary, dict):
+                        # print("Ошибка: элемент не является словарем:", dictionary)
+                        continue
+                    date_transaction = get_date(dictionary.get("date"))
+                    description_transaction = dictionary.get(
+                        "description", "Описание отсутствует"
+                    )
+
+                    from_value = dictionary.get("from")
+                    to_value = dictionary.get("to")
+
+                    # Проверяем, что ключи 'from' и 'to' непустые, прежде чем маскировать номер карты или счета
+                    if (
+                        from_value
+                        and (isinstance(from_value, str))
+                        and any(symbol.isdigit() for symbol in from_value)
+                    ):
+                        from_ = mask_account_card(str(from_value))
+                    else:
+                        from_ = ""
+
+                    if (
+                        to_value
+                        and (isinstance(to_value, str))
+                        and any(symbol.isdigit() for symbol in to_value)
+                    ):
+                        to_ = mask_account_card(str(to_value))
+                    else:
+                        to_ = ""
+
+                    operation_amount = dictionary.get("operationAmount", {})
+                    amount_json = operation_amount.get("amount", "Нет данных")
+                    currency_json = operation_amount.get("currency", {}).get(
+                        "name", "Нет данных"
+                    )
+                    amount = dictionary.get("amount", "Нет данных")
+                    currency = dictionary.get("currency_code", "Нет данных")
+
+                    # Для случая, когда данные получены из json-файла
+                    if "operationAmount" in dictionary:
+                        result = f"""
+                        {date_transaction} {description_transaction}
+                        {from_} {to_}
+                        {amount_json}: {currency_json}
+                        """
+                        print(result)
+
+                    # Для случая, когда данные получены из csv или xlsx-файла
+                    else:
+                        print(
+                            f"""
+                        {date_transaction} {description_transaction}
+                        {from_} {to_}
+                        {amount}: {currency}
+                        """
+                        )
+            else:
+                print(
+                    "\nНе найдено ни одной транзакции, подходящей под ваши условия фильтрации"
+                )
+
+        except Exception as ex:
+            return f"Произошла ошибка {ex}"
+
+    else:  # если фильтровать по слову в описании не нужно, выводим список транзакций, полученных на предыдущем этапе
+        try:
+            if len(filtered_transactions) != 0:
+                print("Распечатываю итоговый список транзакций...")
+                print(
+                    f"Всего банковских операций в выборке: {len(filtered_transactions)}"
+                )
+                for dictionary in filtered_transactions:
+                    # Проверяем наличие нужных для вывода значений в словарях
+                    if not isinstance(dictionary, dict):
+                        # print("Ошибка: элемент не является словарем:", dictionary)
+                        continue
                     date_transaction = get_date(dictionary.get("date"))
                     description_transaction = dictionary.get(
                         "description", "Описание отсутствует"
@@ -223,21 +303,10 @@ def main() -> Any:
                         """
                         )
             else:
-                return "Не найдено ни одной транзакции, подходящей под ваши условия фильтрации"
-
-        except Exception as ex:
-            return f"Произошла ошибка {ex}"
-
-    else:  # если фильтровать по слову в описании не нужно, выводим список транзакций, полученных на предыдущем этапе
-        try:
-            if len(filtered_transactions) != 0:
-                print("Распечатываю итоговый список транзакций...")
                 print(
-                    f"Всего банковских операций в выборке: {len(filtered_transactions)}"
+                    "\nНе найдено ни одной транзакции, подходящей под ваши условия фильтрации"
                 )
-                return filtered_transactions
-            else:
-                return "Не найдено ни одной транзакции, подходящей под ваши условия фильтрации"
+
         except Exception as ex:
             return f"Произошла ошибка {ex}"
 

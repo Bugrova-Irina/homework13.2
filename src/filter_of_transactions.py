@@ -23,7 +23,9 @@ def get_dicts_with_pattern(
     if filtered_dicts:
         return filtered_dicts
     else:
-        return "Нет транзакций с таким описанием"
+        print(
+            "\nНе найдено ни одной транзакции, подходящей под ваши условия фильтрации"
+        )
 
 
 def get_dict_of_categories(
