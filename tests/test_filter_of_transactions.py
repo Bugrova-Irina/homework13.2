@@ -3,8 +3,7 @@ from unittest.mock import mock_open, patch
 
 import pytest
 
-from src.filter_of_transactions import (get_dict_of_categories,
-                                        get_dicts_with_pattern)
+from src.filter_of_transactions import get_dict_of_categories, get_dicts_with_pattern
 
 
 def test_get_dicts_with_pattern(transactions_list):

@@ -2,8 +2,7 @@ from typing import Any
 
 import pytest
 
-from src.generators import (card_number_generator, filter_by_currency,
-                            transaction_descriptions)
+from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 
 
 def test_filter_by_currency(transactions_list: list[dict[str, Any]]) -> None:
@@ -93,9 +92,7 @@ def test_empty_transactions() -> None:
         ),
     ],
 )
-def test_filter_by_other_currency(
-    transactions_list: list[dict[str, Any]], currency: str, expected: str
-) -> None:
+def test_filter_by_other_currency(transactions_list: list[dict[str, Any]], currency: str, expected: str) -> None:
     generator = filter_by_currency(transactions_list, currency)
     try:
         print(next(generator))
@@ -142,9 +139,7 @@ def test_filter_by_other_currency(
         ),
     ],
 )
-def test_transaction_description(
-    transactions_list: list[dict[str, Any]], expected: str
-) -> None:
+def test_transaction_description(transactions_list: list[dict[str, Any]], expected: str) -> None:
     generator = transaction_descriptions(transactions_list)
     assert next(generator) == expected
 
@@ -155,9 +150,7 @@ def test_empty_transaction_descriptions() -> None:
         next(generator)
 
 
-def test_transaction_with_5_description(
-    transactions_list: list[dict[str, Any]]
-) -> None:
+def test_transaction_with_5_description(transactions_list: list[dict[str, Any]]) -> None:
     generator = transaction_descriptions(transactions_list)
     assert next(generator) == "Перевод организации"
     assert next(generator) == "Перевод со счета на счет"

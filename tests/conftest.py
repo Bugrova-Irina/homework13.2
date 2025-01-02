@@ -216,3 +216,16 @@ def csv_or_xlsx_transactions_list() -> list[dict[str, Any]]:
             "description": "Перевод организации",
         },
     ]
+
+
+@pytest.fixture
+def transaction_usd():
+    return {
+        "id": 854048120,
+        "state": "EXECUTED",
+        "date": "2019-03-29T10:57:20.635567",
+        "operationAmount": {"amount": "30234.99", "currency": {"name": "USD", "code": "USD"}},
+        "description": "Перевод с карты на счет",
+        "from": "Visa Classic 1203921041964079",
+        "to": "Счет 34616199494072692721",
+    }

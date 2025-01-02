@@ -3,9 +3,7 @@ from collections import Counter
 from typing import Any
 
 
-def get_dicts_with_pattern(
-    dicts_list: list[dict[str, Any]], pattern_str: str
-) -> list[dict[str, Any]]:
+def get_dicts_with_pattern(dicts_list: list[dict[str, Any]], pattern_str: str) -> list[dict[str, Any]]:
     """Возвращает список словарей, у которых в описании есть заданная строка"""
 
     if not isinstance(dicts_list, list):
@@ -23,14 +21,10 @@ def get_dicts_with_pattern(
     if filtered_dicts:
         return filtered_dicts
     else:
-        print(
-            "\nНе найдено ни одной транзакции, подходящей под ваши условия фильтрации"
-        )
+        print("\nНе найдено ни одной транзакции, подходящей под ваши условия фильтрации")
 
 
-def get_dict_of_categories(
-    dicts_list: list[dict[str, Any]], categories: list[str]
-) -> dict[str, int]:
+def get_dict_of_categories(dicts_list: list[dict[str, Any]], categories: list[str]) -> dict[str, int]:
     """
     возвращает словарь вида
     {'название категории': 'количество операций в каждой категории'}
@@ -40,10 +34,7 @@ def get_dict_of_categories(
 
     categories_list = []
     for dictionary in dicts_list:
-        if (
-            dictionary.get("description") is not None
-            and dictionary["description"] in categories
-        ):
+        if dictionary.get("description") is not None and dictionary["description"] in categories:
             categories_list.append(dictionary["description"])
 
     counted_categories = dict(Counter(categories_list))

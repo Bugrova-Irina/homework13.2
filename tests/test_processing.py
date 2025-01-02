@@ -84,9 +84,7 @@ from src.processing import filter_by_state, sort_by_date
         ),
     ],
 )
-def test_filter_by_state(
-    list_of_dicts: list[dict[str, Any]], state: str, expected: list[dict[str, Any]]
-) -> None:
+def test_filter_by_state(list_of_dicts: list[dict[str, Any]], state: str, expected: list[dict[str, Any]]) -> None:
     assert filter_by_state(list_of_dicts, state) == expected
 
 
@@ -96,9 +94,7 @@ def test_filter_by_state_empty_dict() -> None:
     assert filter_by_state([], state="EXECUTED") == []
 
 
-def test_filter_by_invalid_state(
-    list_of_dicts_with_invalid_status: list[dict[str, Any]]
-) -> None:
+def test_filter_by_invalid_state(list_of_dicts_with_invalid_status: list[dict[str, Any]]) -> None:
     assert filter_by_state(list_of_dicts_with_invalid_status, state="PENDING") == []
 
 
@@ -201,9 +197,7 @@ def test_filter_by_invalid_state(
         ),
     ],
 )
-def test_sort_by_date(
-    list_of_dicts: list[dict[str, Any]], reverse: bool, expected: list[dict[str, Any]]
-) -> None:
+def test_sort_by_date(list_of_dicts: list[dict[str, Any]], reverse: bool, expected: list[dict[str, Any]]) -> None:
     assert (
         sort_by_date(
             [
@@ -333,15 +327,11 @@ def test_sort_by_date(
         ),
     ],
 )
-def test_sort_by_same_date(
-    list_of_dicts: list[dict[str, Any]], reverse: bool, expected: list[dict[str, Any]]
-) -> None:
+def test_sort_by_same_date(list_of_dicts: list[dict[str, Any]], reverse: bool, expected: list[dict[str, Any]]) -> None:
     assert sort_by_date(list_of_dicts, reverse) == expected
 
 
-def test_sort_by_invalid_date(
-    list_of_dicts_with_invalid_dates: list[dict[str, Any]]
-) -> None:
+def test_sort_by_invalid_date(list_of_dicts_with_invalid_dates: list[dict[str, Any]]) -> None:
     with pytest.raises(ValueError):
         sort_by_date(list_of_dicts_with_invalid_dates)
 

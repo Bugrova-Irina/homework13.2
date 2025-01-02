@@ -64,9 +64,7 @@ transactions = [
 ]
 
 
-def filter_by_currency(
-    transactions_list: list[dict[str, Any]], currency: str
-) -> Iterator:
+def filter_by_currency(transactions_list: list[dict[str, Any]], currency: str) -> Iterator:
     """Возвращает итератор, который поочередно выдает транзакции,
     где валюта операции соответствует заданной"""
 
@@ -76,11 +74,7 @@ def filter_by_currency(
     else:
         for transaction in transactions_list:
             if "operationAmount" in transaction:
-                return (
-                    x
-                    for x in transactions_list
-                    if x["operationAmount"]["currency"]["code"] == currency
-                )
+                return (x for x in transactions_list if x["operationAmount"]["currency"]["code"] == currency)
             elif "amount" in transaction:
                 return (x for x in transactions_list if x["currency_code"] == currency)
             else:
@@ -93,9 +87,7 @@ def transaction_descriptions(transactions_list: list[dict[str, Any]]) -> Any:
     if not transactions_list:
         raise ValueError("Некорректные исxодные данные")
     else:
-        description = list(
-            x["description"] for x in transactions_list if x["description"] != ""
-        )
+        description = list(x["description"] for x in transactions_list if x["description"] != "")
         for item in description:
             yield item
 
@@ -107,11 +99,7 @@ def card_number_generator(start: int, stop: int) -> Generator:
     if start > stop:
         print("Начальное значение не может быть больше конечного")
 
-    while (
-        start <= stop
-        and 0 <= start <= 9999999999999999
-        and 0 <= stop <= 9999999999999999
-    ):
+    while start <= stop and 0 <= start <= 9999999999999999 and 0 <= stop <= 9999999999999999:
         card_number_empty = ""
         card_number_str = number_zero[: 16 - len(str(start))] + str(start)
         card_number_total = (

@@ -3,10 +3,8 @@ from unittest.mock import mock_open, patch
 
 import pytest
 
-from src.main import (get_user_filter_by_currency,
-                      get_user_filter_transactions_by_word, get_user_path,
-                      get_user_sort_by_date, get_user_status_of_transactions,
-                      main)
+from src.main import (get_user_filter_by_currency, get_user_filter_transactions_by_word, get_user_path,
+                      get_user_sort_by_date, get_user_status_of_transactions, main)
 from tests.conftest import transactions_list
 
 
