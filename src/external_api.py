@@ -4,18 +4,20 @@ from typing import Any
 import requests
 from dotenv import load_dotenv
 
-from src.utils import generate_transaction, get_transactions
+from utils import generate_transaction, get_transactions
 
 
-def get_amount(transaction: dict[str, Any]) -> float:
+def get_amount(transaction: dict[str, Any], load_env: bool = True) -> float:
     """Выводит сумму транзакции"""
-    amount_transaction = transaction["operationAmount"]["amount"]
+    amount_transaction = float(transaction["operationAmount"]["amount"])
     currency_transaction = transaction["operationAmount"]["currency"]["code"]
 
     if currency_transaction == "RUB":
         return amount_transaction
-    else:
+
+    elif load_env:
         load_dotenv(".env")
+
         apikey = os.getenv("apikey")
 
         if not apikey:
@@ -53,9 +55,12 @@ def get_amount(transaction: dict[str, Any]) -> float:
             print("Ошибка при парсинге JSON ответа.")
             return 0.0
 
+    else:
+        raise Exception(f"Произошла ошибка")
+
 
 if __name__ == "__main__":
-    result = get_transactions("../homework_13.2/data/operations.json")
+    result = get_transactions("../homework13.2/data/operations.json")
 
     transaction_item = generate_transaction(result)
 

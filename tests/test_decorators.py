@@ -33,10 +33,7 @@ def test_no_filename(capsys: pytest.CaptureFixture[str]) -> None:
     my_function(1, 2)
     "Function my_function finished"
     captured = capsys.readouterr()
-    assert (
-        captured.out
-        == "Function my_function started\n3\nmy_function ok\nFunction my_function finished\n"
-    )
+    assert captured.out == "Function my_function started\n3\nmy_function ok\nFunction my_function finished\n"
 
 
 def test_bad_function() -> None:

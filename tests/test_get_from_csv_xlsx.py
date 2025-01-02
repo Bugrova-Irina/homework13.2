@@ -10,8 +10,9 @@ from src.get_from_csv_xlsx import get_transactions_csv, get_transactions_xlsx
 @pytest.fixture
 def mock_data():
     csv_data = """id;state;date;amount;currency_name;currency_code;from;to;description
-    650703;EXECUTED;2023-09-05T11:30:32Z;16210;Sol;PEN;Счет 58803664561298323391;Счет 39745660563456619397;Перевод организации
-    3598919;EXECUTED;2020-12-06T23:00:58Z;29740;Peso;COP;Discover 3172601889670065;Discover 0720428384694643;Перевод с карты на карту"""
+650703;EXECUTED;2023-09-05T11:30:32Z;16210;Sol;PEN;Счет 58803664561298323391;Счет 39745660563456619397;Перевод организации
+3598919;EXECUTED;2020-12-06T23:00:58Z;29740;Peso;COP;Discover 3172601889670065;Discover 0720428384694643;Перевод с карты на карту
+    """
     f = StringIO(csv_data)
     return pd.read_csv(f, delimiter=";")
 
@@ -113,16 +114,10 @@ def test_get_bad_transactions_xlsx(mock_pd_read_excel, mock_bad_xls):
 def test_error_csv():
     """тестирует ошибку обработки csv-файла"""
     result = get_transactions_csv("transactions1.csv")
-    assert (
-        result
-        == "Произошла ошибка [Errno 2] No such file or directory: 'transactions1.csv'"
-    )
+    assert result == "Произошла ошибка [Errno 2] No such file or directory: 'transactions1.csv'"
 
 
 def test_error_xlsx():
     """тестирует ошибку обработки xlsx-файла"""
     result = get_transactions_xlsx("transactions_excel1.xlsx")
-    assert (
-        result
-        == "Произошла ошибка [Errno 2] No such file or directory: 'transactions_excel1.xlsx'"
-    )
+    assert result == "Произошла ошибка [Errno 2] No such file or directory: 'transactions_excel1.xlsx'"

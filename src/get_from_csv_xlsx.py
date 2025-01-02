@@ -3,7 +3,7 @@ from typing import Any
 import pandas as pd
 
 
-def get_transactions_csv(df: pd.DataFrame) -> list[dict[str, Any]]:
+def get_transactions_csv(df: str) -> list[dict[str, Any]]:
     """Считывание финансовых операций из csv-файла"""
     try:
         transactions = pd.read_csv(df, delimiter=";")
@@ -13,7 +13,7 @@ def get_transactions_csv(df: pd.DataFrame) -> list[dict[str, Any]]:
         return f"Произошла ошибка {ex}"
 
 
-def get_transactions_xlsx(df: pd.DataFrame) -> list[dict[str, Any]]:
+def get_transactions_xlsx(df: str) -> list[dict[str, Any]]:
     """Считывание финансовых операций из xlsx-файла"""
     try:
         transactions = pd.read_excel(df)
@@ -24,7 +24,7 @@ def get_transactions_xlsx(df: pd.DataFrame) -> list[dict[str, Any]]:
 
 
 if __name__ == "__main__":
-    # result = get_transactions_csv("transactions.csv")
-    result2 = get_transactions_xlsx("transactions_excel1.xlsx")
-    # print(result)
-    print(result2)
+    result = get_transactions_csv("../homework13.2/data/transactions.csv")
+    # result2 = get_transactions_xlsx("../homework13.2/data/transactions_excel1.xlsx")
+    print(result)
+    # print(result2)

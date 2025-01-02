@@ -25,25 +25,21 @@ def log(filename: str = "") -> Any:
                     result = func(*args, **kwargs)
                     os.makedirs(os.path.dirname(filename), exist_ok=True)
                     with open(filename, "a", encoding="utf-8") as file:
-                        file.write(
-                            f"{start}\n{func.__name__} ok\n{result}\nFunction {func} finished\n"
-                        )
+                        file.write(f"{start}\n{func.__name__} ok\n{result}\nFunction {func} finished\n")
 
                     return result
                 except ZeroDivisionError as e:
                     print(f"Error: {e}")
                     os.makedirs(os.path.dirname(filename), exist_ok=True)
                     with open(filename, "a", encoding="utf-8") as file:
-                        file.write(
-                            f"{func.__name__} error: {e}. Inputs: {args}, {kwargs}\n"
-                        )
+                        file.write(f"{func.__name__} error: {e}. Inputs: {args}, {kwargs}\n")
 
         return wrapper
 
     return logging
 
 
-@log("../homework_13.2/logs/my_log.txt")
+@log("../homework13.2/logs/my_log.txt")
 def my_function(x: int, y: int) -> float:
 
     return x / y
